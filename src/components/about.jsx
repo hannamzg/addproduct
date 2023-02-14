@@ -5,7 +5,7 @@ function About() {
   const [imagePath, setImagePath] = useState("");
 
   const handleOnChange = (event) => {
-    setFile(event.target.files[0]);
+    setFile(event.target.files[0]); 
   };
 
   const handleOnClick = () => {
@@ -15,8 +15,7 @@ function About() {
     fetch("http://localhost:5000/upload", {
       method: "POST",
       body: formData,
-    })
-      .then((response) => {
+    }).then((response) => {
         response.json().then((data) => {
           setImagePath(data);
         });
@@ -36,3 +35,4 @@ function About() {
 }
 
 export default About;
+ 
