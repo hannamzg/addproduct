@@ -1,3 +1,14 @@
+.inputErr{
+    border: solid 2px red;
+}
+
+.err{
+    background-color: rgb(218, 64, 64);
+    border-radius: 2px;
+    font-size: 12px;
+    padding: 2px;
+    color: #FFFFFF;
+}
 
 .dark{
 
@@ -67,6 +78,8 @@
         font-family: cursive;
     }
 
+    
+
 }
 
 
@@ -127,4 +140,6 @@
         border-radius: 7px;
         font-family: cursive;
     }
+
+    
 }
