@@ -13,6 +13,7 @@ function SingUp() {
   const [Color,setColor]=useState('light');
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
+  
 
   const handleOnChange = (event) => {
     setFile(event.target.files[0]); 
@@ -30,7 +31,9 @@ function SingUp() {
       method: "POST",
       body: formData,
     }).then((response) => {
-        response.json().then((data) => {
+    
+        response.json().then((data) => { 
+           data==="Done"&&navigate('/singIn')
          Color==="light"? toast(data, {
             position: "top-right",
             autoClose: 5000,

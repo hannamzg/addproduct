@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { AuthContextProvider } from "./context/authContext";
 
 //  npm i react-router-dom
 //npm  i react-toastify
@@ -15,10 +16,11 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
+    <BrowserRouter>  
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
     </BrowserRouter>
-    
   </React.StrictMode>
 );
 

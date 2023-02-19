@@ -3,15 +3,14 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { singInSchema } from "../schemas";
+import { useNavigate } from "react-router-dom";
+
 
 function SingIn() {
   const [Color, setColor] = useState("light");
-  const [currentUser,setCurrentUser]=useState();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    localStorage.setItem("adminUser", JSON.stringify(currentUser));
-  }, [currentUser]);
-
+ 
   const handleOnClick = async () => {
     const formData = new FormData();
     formData.append("email", values.email);
@@ -27,7 +26,12 @@ function SingIn() {
     })
       .then((response) => {      
         response.json().then((data) => {
-          setCurrentUser(data)
+          localStorage.setItem("adminUser", JSON.stringify(data));
+          console.log(data);
+          if (response.status===200) {
+            navigate("/mainPage")
+          }
+        
           Color === "light"? toast("welcome " + data.name, {
                 position: "top-right",
                 autoClose: 5000,
@@ -132,7 +136,10 @@ function SingIn() {
       },
       validationSchema: singInSchema,
       onSubmit,
-    });
+    }); 
+    
+  
+
 
   return (
     <div className={Color === "light" ? singIng.light : singIng.dark}>

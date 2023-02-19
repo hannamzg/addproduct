@@ -1,12 +1,17 @@
 import NavBar from "../components/navBar"
+import { AuthContext } from "../context/authContext";
+import { useContext, useEffect, useState } from "react";
+
+ 
 
 
+function MainPage() { 
+    const [openUl,setOpenUl]=useState(false);
+    const {currentUser} = useContext(AuthContext);
 
-function MainPage(params) {
     return(
-        <div>
-            <NavBar/>
-            hanna
+        <div onClick={()=> openUl&&setOpenUl(false)}>
+            <NavBar arr={currentUser} setOpenUl={setOpenUl} openUl={openUl}/>
         </div>
     )
 }
