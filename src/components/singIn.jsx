@@ -4,11 +4,15 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { singInSchema } from "../schemas";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
+import { useContext } from "react";
 
 
 function SingIn() {
   const [Color, setColor] = useState("light");
   const navigate = useNavigate();
+  const {login} =useContext(AuthContext);
+  const {currentUser}=useContext(AuthContext);
 
  
   const handleOnClick = async () => {
@@ -16,67 +20,36 @@ function SingIn() {
     formData.append("email", values.email);
     formData.append("password", values.password);
 
-
+    try{
+      await login(formData);
+      navigate("/mainPage");
+    }
+    catch(err){
+      console.log(err);
+      toast(err.message, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+    }
     
 
-    fetch("http://localhost:5000/api/auth/login", {
+   /*  fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       credentials: 'include',
       body: formData,
     })
       .then((response) => {      
         response.json().then((data) => {
-          localStorage.setItem("adminUser", JSON.stringify(data));
-          console.log(data);
-          if (response.status===200) {
-            navigate("/mainPage")
-          }
-        
-          Color === "light"? toast("welcome " + data.name, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              })
-            : toast("welcome " + data.name, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-              });
         });
       })
       .catch((error) => {
-        Color === "light"
-          ? toast(error, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            })
-          : toast(error, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-      });
+      }); */
   };
 
   function onSubmit() {
@@ -84,7 +57,7 @@ function SingIn() {
       Color === "light"
         ? toast(errors.email, {
             position: "top-right",
-            autoClose: 5000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -94,7 +67,7 @@ function SingIn() {
           })
         : toast(errors.email, {
             position: "top-right",
-            autoClose: 5000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -106,7 +79,7 @@ function SingIn() {
       Color === "light"
         ? toast(errors.password, {
             position: "top-right",
-            autoClose: 5000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -116,7 +89,7 @@ function SingIn() {
           })
         : toast(errors.password, {
             position: "top-right",
-            autoClose: 5000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,

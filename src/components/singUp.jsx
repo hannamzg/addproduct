@@ -1,5 +1,5 @@
 import singUp from  '../styles/SingUp.module.scss'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import {basicSchema} from "../schemas"
@@ -9,15 +9,25 @@ import {toast } from 'react-toastify';
 
 
 function SingUp() {
-
+  const [currentUser,setcurrentUser]=useState(JSON.parse(localStorage.getItem("adminUser")));
+  
   const [Color,setColor]=useState('light');
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
   
+  useEffect(()=>{
+    if (currentUser) {
+      navigate('/mainPage')
+    }
+  },[])
 
+  
   const handleOnChange = (event) => {
     setFile(event.target.files[0]); 
   };
+  
+
+ 
 
   const handleOnClick = () => {
     const formData = new FormData();

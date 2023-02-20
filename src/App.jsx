@@ -6,18 +6,13 @@ import SingUp from './components/singUp';
 import SingIn from "./components/singIn";
 import "react-toastify/dist/ReactToastify.css"
 import { ToastContainer} from 'react-toastify';
-import MainPage from "./page/mainPage"
-import { AuthContext } from "./context/authContext";
-import { useContext, useState ,useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import MainPage from "./page/mainPage";
+import ProtectedRoute from "./common/ProtectedRoute"
 
 
 function App() {
 
-  //const {currentUser} = useContext(AuthContext);
-  //const navigate = useNavigate();
- 
- 
+  
   return (
   <>
     <div className="App"> 
@@ -28,6 +23,8 @@ function App() {
             <Route path="/mainPage" element={<MainPage />} />
             <Route path="/" element={<SingUp />} />
             <Route path="/singIn" element={<SingIn />} />
+            {/* <Route path="/singIn" element={<ProtectedRoute > <SingIn /></ProtectedRoute>} /> */}
+
           </Routes>
         </div>
     </div>
