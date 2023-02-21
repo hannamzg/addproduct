@@ -5,7 +5,7 @@ function AddProductBtn(prop) {
    return (
     <div className={addProductBtn.main}>
         <div>
-            <button className={addProductBtn.btn} onClick={()=>prop.setOpenAddProcdut(true)}>Add product +</button>
+            <button className={addProductBtn.btn} onClick={()=>prop.setOpenAddProcdut(true)}>Add product</button>
         </div>        
     </div>
    )

@@ -1,7 +1,4 @@
 
-
-
-
 export function logOut() {
     fetch("http://localhost:5000/api/auth/logout", {
       method: "POST",

@@ -11,7 +11,7 @@ function SingIn() {
   const [Color, setColor] = useState("light");
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
-  const { currentUser } = useContext(AuthContext);
+  //const { currentUser } = useContext(AuthContext);
 
   // React.useEffect(() => {
   //   if (true) {

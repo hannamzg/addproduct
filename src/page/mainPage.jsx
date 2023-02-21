@@ -10,8 +10,7 @@ function MainPage() {
     const [openAddProcdut,setOpenAddProcdut]=useState(false);
     const {currentUser}= useContext(AuthContext);
 
-    console.log(openAddProcdut);
-
+   
     return(
     <div onClick={()=> openUl&&setOpenUl(false)}>
         <NavBar arr={currentUser} setOpenUl={setOpenUl} openUl={openUl}/>
