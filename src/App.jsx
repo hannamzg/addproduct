@@ -12,6 +12,7 @@ import ProtectedRoute from "./common/ProtectedRoute"
 
 function App() {
 
+  const isSignedIn = true;
   
   return (
   <>

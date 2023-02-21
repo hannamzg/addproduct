@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
+//export const IsSignedIn = token != null && token != ""
 
 export const AuthContextProvider = ({ children }) => {
    const [currentUser, setCurrentUser] = useState(

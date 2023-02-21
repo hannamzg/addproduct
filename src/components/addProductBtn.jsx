@@ -1,18 +1,12 @@
 import addProductBtn from  "../styles/AddProductBtn.module.scss"
 
 
-function AddProductBtn() {
+function AddProductBtn(prop) {
    return (
     <div className={addProductBtn.main}>
         <div>
-            <button className={addProductBtn.btn}>Add product +</button>
-        </div>
-        <div className={addProductBtn.divForm}>
-            <from >
-                <h3>form</h3>
-            </from>
-        </div>
-        
+            <button className={addProductBtn.btn} onClick={()=>prop.setOpenAddProcdut(true)}>Add product +</button>
+        </div>        
     </div>
    )
 }

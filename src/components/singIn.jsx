@@ -7,24 +7,27 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import { useContext } from "react";
 
-
 function SingIn() {
   const [Color, setColor] = useState("light");
   const navigate = useNavigate();
-  const {login} =useContext(AuthContext);
-  const {currentUser}=useContext(AuthContext);
+  const { login } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
- 
+  // React.useEffect(() => {
+  //   if (true) {
+  //     navigate("/mainPage")
+  //   }
+  // }, [navigate]);
+
   const handleOnClick = async () => {
     const formData = new FormData();
     formData.append("email", values.email);
     formData.append("password", values.password);
 
-    try{
+    try {
       await login(formData);
       navigate("/mainPage");
-    }
-    catch(err){
+    } catch (err) {
       console.log(err);
       toast(err.message, {
         position: "top-right",
@@ -35,11 +38,10 @@ function SingIn() {
         draggable: true,
         progress: undefined,
         theme: "light",
-      })
+      });
     }
-    
 
-   /*  fetch("http://localhost:5000/api/auth/login", {
+    /*  fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       credentials: 'include',
       body: formData,
@@ -109,10 +111,7 @@ function SingIn() {
       },
       validationSchema: singInSchema,
       onSubmit,
-    }); 
-    
-  
-
+    });
 
   return (
     <div className={Color === "light" ? singIng.light : singIng.dark}>
