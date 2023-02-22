@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import {addProductServes} from "../context/addProductServes";
 import { AuthContext } from "../context/authContext";
 import { useContext } from "react";
+import { toast } from "react-toastify";
+import {addProductSchema} from '../schemas/index';
 
 
 
@@ -15,24 +17,97 @@ function AddProductForm(prop) {
 
 
     function onSubmit (){
-        addProductServes(file,values.name,values.price,values.description,currentUser.id);
-    }
+        if (errors.name) {
+            toast(errors.name, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            return
+        }
+        else if (errors.price) {
+            toast(errors.price, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            return
+        }        
+        else if (errors.description) {
+            toast(errors.description, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            return
+        }
+        
+        try{
+            addProductServes(file,values.name,values.price,values.description,currentUser.id);
+            toast("product has been added", {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+            });
+        }
+        catch(err){
+            toast(err, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+        }
+
+/*          clearValues() 
+ */    }
 
     const handleOnChange = (event) => {
         setFile(event.target.files[0]); 
     };
       
-
-    
+    /*  const clearValues  = () => {
+       values.name ="";
+       values.price ="";
+       values.description=""
+       console.log(98);
+    }; */
+     
     const {values,errors,touched,handleBlur,handleChange,handleSubmit}= useFormik({
         initialValues:{
           name:"",
           price:"",
           description:""
         },
-        //validationSchema:basicSchema,
-        onSubmit
+        validationSchema:addProductSchema,
+        onSubmit,
+        
     })
+
 
     return (
      <div className={addProductForm.main} >
@@ -42,12 +117,15 @@ function AddProductForm(prop) {
                     <i className="bi bi-x-circle" id={addProductForm.headIcon} onClick={()=>prop.setOpenAddProcdut(false)}></i>
                 </div>
                     <form className={addProductForm.form} >
-                        <input type="text" className={addProductForm.inp} name="name" value={values.name} onChange={handleChange}  placeholder="name"/>
-                        <input type="text" className={addProductForm.inp} name="price" value={values.email} onChange={handleChange}  placeholder="price"/>
-                        <input type="text" className={addProductForm.inp} name="description" value={values.description} onChange={handleChange}  placeholder="description"/>
+                        <input type="text" className={errors.name&& touched.name ? addProductForm.inp +" " + addProductForm.inputErr:addProductForm.inp}  onBlur={handleBlur} name="name" value={values.name} onChange={handleChange}  placeholder="name"/>
+                        {errors.name &&touched.name ?<h6 className={addProductForm.err}>{errors.name}</h6>:""}
+                        <input type="text" className={errors.price&& touched.price ? addProductForm.inp +" " + addProductForm.inputErr:addProductForm.inp} onBlur={handleBlur} name="price" value={values.email} onChange={handleChange}  placeholder="price"/>
+                        {errors.price &&touched.price ?<h6 className={addProductForm.err}>{errors.price}</h6>:""}
+                        <input type="text" className={errors.description&& touched.description ? addProductForm.inp +" " + addProductForm.inputErr:addProductForm.inp} onBlur={handleBlur} name="description" value={values.description} onChange={handleChange}  placeholder="description"/>
+                        {errors.description &&touched.description ?<h6 className={addProductForm.err}>{errors.description}</h6>:""}
                         <input type="file" className={addProductForm.file} onChange={handleOnChange}/>
                         <div className={addProductForm.divBtn}>
-                            <button className={addProductForm.btn} onClick={handleSubmit}><i className="bi bi-plus-circle-fill"></i></button>
+                            <button type="submit" className={addProductForm.btn} onClick={handleSubmit}><i className="bi bi-plus-circle-fill"></i></button>
                         </div>   
                     </form>
            </div>

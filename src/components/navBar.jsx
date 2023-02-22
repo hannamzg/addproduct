@@ -19,6 +19,7 @@ function NavBar(props) {
                 <h1 className={nav.name}>{props.arr.name}</h1>
                 <div className={nav.photoCon}>
                         <img src={"http://localhost:5000/"+props.arr.photo} alt="" className={nav.profilePhoto} onClick={()=> props.openUl?props.setOpenUl(false):props.setOpenUl(true)}/>
+                        <i className="bi bi-arrow-down"></i>
                         {props.openUl &&
                         <ul className={nav.divDown}>
                             <li className={nav.liItem} onClick={()=>{

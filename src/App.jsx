@@ -7,12 +7,12 @@ import SingIn from "./components/singIn";
 import "react-toastify/dist/ReactToastify.css"
 import { ToastContainer} from 'react-toastify';
 import MainPage from "./page/mainPage";
-import ProtectedRoute from "./common/ProtectedRoute"
+//import ProtectedRoute from "./common/ProtectedRoute"
 
 
 function App() {
 
-  const isSignedIn = true;
+ // const isSignedIn = true;
   
   return (
   <>

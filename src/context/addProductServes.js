@@ -1,3 +1,6 @@
+
+
+
 export const addProductServes = (file,name,price,description,userId) => {
     const formData = new FormData();
     formData.append("image",file);
@@ -13,11 +16,11 @@ export const addProductServes = (file,name,price,description,userId) => {
       credentials: 'include',
     }).then((response) => {
         response.json().then((data) => { 
-           console.log(data);
+           return data
         });
       })
       .catch((error) => {
-       console.log("err"+error);
+        return error
       });   
   };
   

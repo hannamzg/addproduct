@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import {basicSchema} from "../schemas"
 import {toast } from 'react-toastify';
+import axios from "axios";
+
 //npm install formik
 
 
@@ -29,22 +31,50 @@ function SingUp() {
 
  
 
-  const handleOnClick = () => {
+  const  handleOnClick = async () => {
+   
     const formData = new FormData();
     formData.append("image", file);
     formData.append("name",values.name);
     formData.append("email",values.email);
     formData.append("password",values.password);
-   
+    try{
+      const res = await axios.post("http://localhost:5000/api/auth/singUp",formData);
+      if (res.status===200&&res.data ==="Done") {
+        navigate('/singIn')
+        toast("welcome", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          })
+      }
+    }
+    catch(err){
+      toast(err, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        })
+    }
     
-    fetch("http://localhost:5000/api/auth/singUp", {
+ /*    fetch("http://localhost:5000/api/auth/singUp", {
       method: "POST",
       body: formData,
     }).then((response) => {
-    
+      
         response.json().then((data) => { 
-           data==="Done"&&navigate('/singIn')
-         Color==="light"? toast(data, {
+           response.status==="200"&&navigate('/singIn')
+           Color==="light"? toast("welcome", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -86,7 +116,7 @@ function SingUp() {
             progress: undefined,
             theme: "dark",
             })
-      });   
+      });  */  
   };
   
   function onSubmit() {
@@ -166,7 +196,7 @@ function SingUp() {
     onSubmit
   })
 
-  console.log(errors.name);
+  //console.log(errors.name);
  
 
     return (
@@ -177,7 +207,7 @@ function SingUp() {
             <div onClick={()=> { Color === "light"? setColor("dark"):setColor("light") }} className={singUp.ChangeColor}>{Color ==="light"?<i className="bi bi-moon-fill" style={{color:"white",fontSize:"40px",cursor:"pointer"}}></i>:<i className="bi bi-brightness-high" style={{color:"black",fontSize:"40px",cursor:"pointer"}}> </i>}</div>
           </div>
           
-            <form className={singUp.from} onSubmit={handleSubmit}>
+            <form className={singUp.from} >
               <h2 className={singUp.header} >sing Up</h2>               
                 <input type="text" className={errors.name&& touched.name ? singUp.inp +" " + singUp.inputErr:singUp.inp} onBlur={handleBlur} name="name"  value={values.name} onChange={handleChange}  placeholder="name"/>
                 {errors.name &&touched.name ?<h6 className={singUp.err}>{errors.name}</h6>:""}
@@ -186,7 +216,7 @@ function SingUp() {
                 <input type="text" className={errors.password&& touched.password ? singUp.inp +" " + singUp.inputErr:singUp.inp} onBlur={handleBlur} name="password"  value={values.password} onChange={handleChange} placeholder="password"/>
                 {errors.password &&touched.password ?<h6 className={singUp.err}>{errors.password}</h6>:""}
                 <input type="file" onChange={handleOnChange} />
-                <button className={singUp.submit}   onClick={onSubmit}>submit</button>
+                <button className={singUp.submit}  type='submit'   onClick={handleSubmit}>submit</button>
                 <button onClick={()=>  navigate("/singIn")} className={singUp.sendToSingIn}>you already have account</button>
             </form>
         </div>

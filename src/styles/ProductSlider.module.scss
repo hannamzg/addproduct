@@ -1,0 +1,35 @@
+
+
+
+.items{
+    margin: 30px auto;
+    width: 80%;
+}
+
+.item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #212529;
+    color: #FFFFFF;
+    margin: 10px 0 ;
+}
+
+.itemLeft{
+    display: flex;
+    align-items: center;
+}
+
+.titles{
+    font-size: 18px;
+    margin: 0 10px;
+    font-family: sans-serif;
+}
+
+
+.img{
+    width: 100px;
+    height: auto;
+}

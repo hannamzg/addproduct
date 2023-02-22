@@ -3,6 +3,7 @@ import { AuthContext } from "../context/authContext";
 import { useContext, useEffect, useState } from "react";
 import AddProductBtn from "../components/addProductBtn.jsx"
 import AddProductForm from "../components/addProductForm" 
+import ProductSlider from '../components/ProductSlider';
 
 
 function MainPage() { 
@@ -16,6 +17,7 @@ function MainPage() {
         <NavBar arr={currentUser} setOpenUl={setOpenUl} openUl={openUl}/>
         <AddProductBtn setOpenAddProcdut={setOpenAddProcdut}/>
         {openAddProcdut ?<AddProductForm setOpenAddProcdut={setOpenAddProcdut}/>:""}
+        <ProductSlider/>
     </div>
     ) 
 }

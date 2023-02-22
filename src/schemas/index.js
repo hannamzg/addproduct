@@ -17,6 +17,19 @@ export const basicSchema = yup.object().shape({
 });
 
 
+
+export const addProductSchema = yup.object().shape({
+  name: yup
+  .string()
+  .min(2)
+  .required("Name Required"),
+  price: yup.string().min(2)
+  .required("price Required"),
+  description: yup.string().min(2)
+  .required("description Required"),
+});
+
+
 export const singInSchema = yup.object().shape({
   email: yup.string().email("Please enter a valid email").required("Email Required"),
   password: yup
