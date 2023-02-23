@@ -83,19 +83,14 @@ function AddProductForm(prop) {
               });
         }
 
-/*          clearValues() 
- */    }
+    
+    }
 
     const handleOnChange = (event) => {
         setFile(event.target.files[0]); 
     };
       
-    /*  const clearValues  = () => {
-       values.name ="";
-       values.price ="";
-       values.description=""
-       console.log(98);
-    }; */
+   
      
     const {values,errors,touched,handleBlur,handleChange,handleSubmit}= useFormik({
         initialValues:{
@@ -125,7 +120,9 @@ function AddProductForm(prop) {
                         {errors.description &&touched.description ?<h6 className={addProductForm.err}>{errors.description}</h6>:""}
                         <input type="file" className={addProductForm.file} onChange={handleOnChange}/>
                         <div className={addProductForm.divBtn}>
-                            <button type="submit" className={addProductForm.btn} onClick={handleSubmit}><i className="bi bi-plus-circle-fill"></i></button>
+                            <button type="submit" className={addProductForm.btn} onClick={()=>{handleSubmit()
+                            prop.setProductHasBeenAdd(true)
+                            }}><i className="bi bi-plus-circle-fill"></i></button>
                         </div>   
                     </form>
            </div>

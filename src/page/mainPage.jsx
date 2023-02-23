@@ -9,6 +9,7 @@ import ProductSlider from '../components/ProductSlider';
 function MainPage() { 
     const [openUl,setOpenUl]=useState(false);
     const [openAddProcdut,setOpenAddProcdut]=useState(false);
+    const [productHasBeenAdd,setProductHasBeenAdd]=useState(false)
     const {currentUser}= useContext(AuthContext);
 
    
@@ -16,8 +17,8 @@ function MainPage() {
     <div onClick={()=> openUl&&setOpenUl(false)}>
         <NavBar arr={currentUser} setOpenUl={setOpenUl} openUl={openUl}/>
         <AddProductBtn setOpenAddProcdut={setOpenAddProcdut}/>
-        {openAddProcdut ?<AddProductForm setOpenAddProcdut={setOpenAddProcdut}/>:""}
-        <ProductSlider/>
+        {openAddProcdut ?<AddProductForm setOpenAddProcdut={setOpenAddProcdut} setProductHasBeenAdd={setProductHasBeenAdd}/>:""}
+        <ProductSlider setProductHasBeenAdd={setProductHasBeenAdd} productHasBeenAdd={productHasBeenAdd}/>
     </div>
     ) 
 }
