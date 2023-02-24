@@ -7,12 +7,10 @@ import SingIn from "./components/singIn";
 import "react-toastify/dist/ReactToastify.css"
 import { ToastContainer} from 'react-toastify';
 import MainPage from "./page/mainPage";
-//import ProtectedRoute from "./common/ProtectedRoute"
 
 
 function App() {
 
- // const isSignedIn = true;
   
   return (
   <>
@@ -24,8 +22,6 @@ function App() {
             <Route path="/mainPage" element={<MainPage />} />
             <Route path="/" element={<SingUp />} />
             <Route path="/singIn" element={<SingIn />} />
-            {/* <Route path="/singIn" element={<ProtectedRoute > <SingIn /></ProtectedRoute>} /> */}
-
           </Routes>
         </div>
     </div>

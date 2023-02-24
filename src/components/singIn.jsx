@@ -1,23 +1,22 @@
 import singIng from "../styles/singIn.module.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
+import {Navigate} from "react-router-dom";
 import { useFormik } from "formik";
 import { singInSchema } from "../schemas";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import { useContext } from "react";
 
+
 function SingIn() {
   const [Color, setColor] = useState("light");
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
-  //const { currentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
-  // React.useEffect(() => {
-  //   if (true) {
-  //     navigate("/mainPage")
-  //   }
-  // }, [navigate]);
+  
+
 
   const handleOnClick = async () => {
     const formData = new FormData();
@@ -113,6 +112,10 @@ function SingIn() {
       onSubmit,
     });
 
+    if(currentUser){
+      return <Navigate to="/mainPage"/>
+    }
+    
   return (
     <div className={Color === "light" ? singIng.light : singIng.dark}>
       <div className={singIng.singInDiv}>

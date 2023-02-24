@@ -3,15 +3,16 @@ import {getAllProducts} from '../context/getAllProducts';
 import { useEffect ,useState} from "react";
 import {deleteProductServes} from '../context/deleteProductServes'
 import { toast } from "react-toastify";
+import moment from "moment"
 
 function ProductSlider(prop) {
     const [data,setData] =useState([]);
-    const [someChange,setSomeChange]=useState(false)
+    const [someChange,setSomeChange]=useState()
 
     useEffect(()=>{
-        setSomeChange(false);
-        prop.setProductHasBeenAdd(false)
         setSomeChange(prop.productHasBeenAdd)
+        setSomeChange([prop.openEditProduct,prop.productHasBeenAdd])
+        
         try{
             getAllProducts().then((data)=>{
                 setData(data)
@@ -23,7 +24,7 @@ function ProductSlider(prop) {
         catch(err){
            // console.log(err);
         } 
-    },[someChange]);
+    },[prop.openEditProduct],[prop.productHasBeenAdd]);
 
 
     function deleteProduct(id) {
@@ -90,18 +91,20 @@ function ProductSlider(prop) {
                         <h6  style={{textAlign:"center"}}>description</h6>
                        <p style={{maxWidth:"250px",overflow:"auto",fontSize:"12px",margin:" 0 10px"}}>{item.description}</p>
                     </div>
+                    <h6 className={productSlider.titles}>{moment(item.createAt).fromNow()}</h6>
                 </div>
                 <div> 
-                    <i className="bi bi-pencil-fill" id={productSlider.pencilIcon}></i>
+                    <i className="bi bi-pencil-fill" id={productSlider.pencilIcon} onClick={()=>{
+                        prop.setOpenEditProduct(true)
+                        prop.setEditValues(item)
+                    }}></i>
                     <i className="bi bi-trash3" id={productSlider.trash3Icon} onClick={()=>{
                         let idToStraing = item.id.toString();
                         deleteProduct(idToStraing)
-                        
                     }}></i>
-
                 </div>
             </div>
-        ) :<div className={productSlider.custom}></div>}  
+        ) :<div className={productSlider.custom} style={{margin:"0 auto"}}></div>}  
        </div>
     )
 }
