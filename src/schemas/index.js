@@ -27,6 +27,8 @@ export const addProductSchema = yup.object().shape({
   .required("price Required"),
   description: yup.string().min(2)
   .required("description Required"),
+  categories: yup.string().min(2)
+  .required("categories Required"),
 });
 
 

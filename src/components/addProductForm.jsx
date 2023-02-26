@@ -58,17 +58,23 @@ function AddProductForm(prop) {
         }
         
         try{
-            addProductServes(file,values.name,values.price,values.description,currentUser.id);
-            toast("product has been added", {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-            });
+            if (Object.keys(errors).length !== 0) {
+                return 
+            }
+            else{
+                addProductServes(file,values.name,values.price,values.description,currentUser.id,values.categories);
+                toast("product has been added", {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                });
+            }
+            
         }
         catch(err){
             toast(err, {
@@ -96,13 +102,13 @@ function AddProductForm(prop) {
         initialValues:{
           name:"",
           price:"",
-          description:""
+          description:"",
+          categories:""
         },
         validationSchema:addProductSchema,
         onSubmit,
         
     })
-
 
     return (
      <div className={addProductForm.main} >
@@ -111,20 +117,40 @@ function AddProductForm(prop) {
                     <h2 className={addProductForm.headTitle}>add product</h2>
                     <i className="bi bi-x-circle" id={addProductForm.headIcon} onClick={()=>prop.setOpenAddProcdut(false)}></i>
                 </div>
-                    <form className={addProductForm.form} >
+                    <div className={addProductForm.form} >
                         <input type="text" className={errors.name&& touched.name ? addProductForm.inp +" " + addProductForm.inputErr:addProductForm.inp}  onBlur={handleBlur} name="name" value={values.name} onChange={handleChange}  placeholder="name"/>
                         {errors.name &&touched.name ?<h6 className={addProductForm.err}>{errors.name}</h6>:""}
                         <input type="text" className={errors.price&& touched.price ? addProductForm.inp +" " + addProductForm.inputErr:addProductForm.inp} onBlur={handleBlur} name="price" value={values.email} onChange={handleChange}  placeholder="price"/>
                         {errors.price &&touched.price ?<h6 className={addProductForm.err}>{errors.price}</h6>:""}
                         <input type="text" className={errors.description&& touched.description ? addProductForm.inp +" " + addProductForm.inputErr:addProductForm.inp} onBlur={handleBlur} name="description" value={values.description} onChange={handleChange}  placeholder="description"/>
                         {errors.description &&touched.description ?<h6 className={addProductForm.err}>{errors.description}</h6>:""}
+                        <input type="text" className={errors.categories&& touched.categories ? addProductForm.inp +" " + addProductForm.inputErr:addProductForm.inp} onBlur={handleBlur} name="categories" value={values.categories} onChange={handleChange}  placeholder="categories"/>
+                        {errors.categories &&touched.categories ?<h6 className={addProductForm.err}>{errors.categories}</h6>:""}
                         <input type="file" className={addProductForm.file} onChange={handleOnChange}/>
                         <div className={addProductForm.divBtn}>
-                            <button type="submit" className={addProductForm.btn} onClick={()=>{handleSubmit()
-                            prop.setProductHasBeenAdd(true)
+                            <button type="submit" className={addProductForm.btn} onClick={()=>{
+                            if (Object.keys(errors).length !== 0) {
+                                toast("complete your form", {
+                                    position: "top-right",
+                                    autoClose: 2000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "light",
+                                });
+                                return 
+                            }
+                            else{
+                                handleSubmit()
+                                prop.setProductHasBeenAdd(true);  
+                                prop.setOpenAddProcdut(false)
+                            }
+                            
                             }}><i className="bi bi-plus-circle-fill"></i></button>
                         </div>   
-                    </form>
+                    </div>
            </div>
      </div>
     )

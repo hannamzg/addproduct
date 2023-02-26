@@ -10,11 +10,11 @@ import { addProductSchema } from "../schemas/index"
 
 
 function EditProduct(prop) {
-    const [file, setFile] = useState(null);
+ //   const [file, setFile] = useState(null);
     
     function onSubmit (){
         prop.setOpenEditProduct(false)
-        let valuesArr = {name:values.name,description: values.description,price: values.price,photo:values.photo,id:prop.editValues.id}
+        let valuesArr = {name:values.name,description: values.description,price: values.price,photo:values.photo,categories:values.categories,id:prop.editValues.id}
         try{
             EditProductServes(valuesArr)
         }
@@ -23,9 +23,9 @@ function EditProduct(prop) {
         }
     }
 
-    const handleOnChange = (event) => {
+    /* const handleOnChange = (event) => {
         setFile(event.target.files[0]); 
-    };
+    }; */
       
    
      
@@ -34,7 +34,8 @@ function EditProduct(prop) {
           name:prop.editValues.name,
           price:prop.editValues.price,
           description:prop.editValues.description,
-          photo:prop.editValues.photo
+          photo:prop.editValues.photo,
+          categories:prop.editValues.categories
         },
         validationSchema:addProductSchema,
         onSubmit,
@@ -55,7 +56,9 @@ function EditProduct(prop) {
                         {errors.price &&touched.price ?<h6 className={addProductForm.err}>{errors.price}</h6>:""}
                         <input type="text" className={errors.description&& touched.description ? addProductForm.inp +" " + addProductForm.inputErr:addProductForm.inp} onBlur={handleBlur} name="description" value={values.description} onChange={handleChange}  placeholder="description"/>
                         {errors.description &&touched.description ?<h6 className={addProductForm.err}>{errors.description}</h6>:""}
-                        <input type="file" className={addProductForm.file}  onChange={handleOnChange}/>
+                        <input type="text" className={errors.categories&& touched.categories ? addProductForm.inp +" " + addProductForm.inputErr:addProductForm.inp} onBlur={handleBlur} name="categories" value={values.categories} onChange={handleChange}  placeholder="categories"/>
+                        {errors.categories &&touched.categories ?<h6 className={addProductForm.err}>{errors.categories}</h6>:""}
+                       
                         <div className={addProductForm.divBtn}>
                             <button type="submit" className={addProductForm.btn} style={{backgroundColor:"green",fontSize:"20px"}} onClick={()=>{handleSubmit()}}><i className="bi bi-check2"></i></button>
                         </div>   

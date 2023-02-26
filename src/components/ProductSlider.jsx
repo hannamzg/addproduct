@@ -7,13 +7,14 @@ import moment from "moment"
 
 function ProductSlider(prop) {
     const [data,setData] =useState([]);
-    const [someChange,setSomeChange]=useState()
+
 
     useEffect(()=>{
-        setSomeChange(prop.productHasBeenAdd)
-        setSomeChange([prop.openEditProduct,prop.productHasBeenAdd])
-        
-        try{
+   
+        try{ 
+            prop.setProductHasBeenAdd(false);
+            prop.setproductHasBeendeleted(false)
+
             getAllProducts().then((data)=>{
                 setData(data)
             })
@@ -22,9 +23,10 @@ function ProductSlider(prop) {
             })
         }
         catch(err){
-           // console.log(err);
+            console.log(err);
         } 
-    },[prop.openEditProduct],[prop.productHasBeenAdd]);
+        
+    },[prop.productHasBeenAdd,prop.openEditProduct,prop.productHasBeendeleted]);
 
 
     function deleteProduct(id) {
@@ -67,7 +69,7 @@ function ProductSlider(prop) {
                 theme: "light",
             });
         } 
-        setSomeChange(true);
+        //setSomeChange(true);
     }
     
    
@@ -89,7 +91,11 @@ function ProductSlider(prop) {
                     </div>
                     <div>
                         <h6  style={{textAlign:"center"}}>description</h6>
-                       <p style={{maxWidth:"250px",overflow:"auto",fontSize:"12px",margin:" 0 10px"}}>{item.description}</p>
+                        <p style={{maxWidth:"250px",overflow:"auto",fontSize:"12px",margin:" 0 15px"}}>{item.description}</p>
+                    </div>
+                    <div>
+                        <h6  style={{textAlign:"center"}}>categories</h6>
+                        <p style={{maxWidth:"250px",overflow:"auto",fontSize:"12px",margin:" 0 25px"}}>{item.categories}</p>
                     </div>
                     <h6 className={productSlider.titles}>{moment(item.createAt).fromNow()}</h6>
                 </div>
@@ -100,7 +106,8 @@ function ProductSlider(prop) {
                     }}></i>
                     <i className="bi bi-trash3" id={productSlider.trash3Icon} onClick={()=>{
                         let idToStraing = item.id.toString();
-                        deleteProduct(idToStraing)
+                        deleteProduct(idToStraing);
+                        prop.setproductHasBeendeleted(true);
                     }}></i>
                 </div>
             </div>

@@ -14,6 +14,7 @@ function MainPage() {
     const [openAddProcdut,setOpenAddProcdut]=useState(false);
     const [openEditProduct,setOpenEditProduct]=useState(false);
     const [productHasBeenAdd,setProductHasBeenAdd]=useState(false);
+    const [productHasBeendeleted,setproductHasBeendeleted]=useState(false);
     const [editValues,setEditValues]=useState({})
     const {currentUser}= useContext(AuthContext);
 
@@ -23,7 +24,7 @@ function MainPage() {
    
    
     return(
-    <div onClick={()=> openUl&&setOpenUl(false)}>
+    <div onClick={()=> openUl&&setOpenUl(false)} >
         <NavBar arr={currentUser} setOpenUl={setOpenUl} openUl={openUl}/>
         <AddProductBtn setOpenAddProcdut={setOpenAddProcdut}/>
         {openAddProcdut ?<AddProductForm setOpenAddProcdut={setOpenAddProcdut} setProductHasBeenAdd={setProductHasBeenAdd}/>:""}
@@ -33,6 +34,8 @@ function MainPage() {
         setOpenEditProduct={setOpenEditProduct} 
         setEditValues={setEditValues} 
         openEditProduct={openEditProduct}
+        setproductHasBeendeleted={setproductHasBeendeleted}
+        productHasBeendeleted={productHasBeendeleted}
          />
        {openEditProduct && <EditProduct setOpenEditProduct={setOpenEditProduct} editValues={editValues}/>}
     </div>

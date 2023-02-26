@@ -1,5 +1,5 @@
 import singIng from "../styles/singIn.module.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {Navigate} from "react-router-dom";
 import { useFormik } from "formik";
@@ -13,10 +13,15 @@ function SingIn() {
   const [Color, setColor] = useState("light");
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
-  const { currentUser } = useContext(AuthContext);
-
+ // const { currentUser } = useContext(AuthContext);
+  const [currentUser,setcurrentUser] = useState(JSON.parse(localStorage.getItem("adminUser")) )
   
-
+  useEffect(()=>{
+    if(currentUser){
+      return <Navigate to="/mainPage"/>
+    }
+  },[])
+    
 
   const handleOnClick = async () => {
     const formData = new FormData();
@@ -25,9 +30,8 @@ function SingIn() {
 
     try {
       await login(formData);
-      navigate("/mainPage");
+      navigate("/mainPage") 
     } catch (err) {
-      console.log(err);
       toast(err.message, {
         position: "top-right",
         autoClose: 2000,
@@ -112,9 +116,6 @@ function SingIn() {
       onSubmit,
     });
 
-    if(currentUser){
-      return <Navigate to="/mainPage"/>
-    }
     
   return (
     <div className={Color === "light" ? singIng.light : singIng.dark}>

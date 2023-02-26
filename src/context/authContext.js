@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 //export const IsSignedIn = token != null && token != ""
 
 export const AuthContextProvider = ({ children }) => {
-   const [currentUser, setCurrentUser] = useState(
+  const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("adminUser")) 
   ); 
 

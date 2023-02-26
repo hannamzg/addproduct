@@ -196,7 +196,6 @@ function SingUp() {
     onSubmit
   })
 
-  //console.log(errors.name);
  
 
     return (
@@ -216,7 +215,7 @@ function SingUp() {
                 <input type="text" className={errors.password&& touched.password ? singUp.inp +" " + singUp.inputErr:singUp.inp} onBlur={handleBlur} name="password"  value={values.password} onChange={handleChange} placeholder="password"/>
                 {errors.password &&touched.password ?<h6 className={singUp.err}>{errors.password}</h6>:""}
                 <input type="file" onChange={handleOnChange} />
-                <button className={singUp.submit}  type='submit'   onClick={handleSubmit}>submit</button>
+                <button className={singUp.submit}  type='submit'  onClick={handleSubmit}>submit</button>
                 <button onClick={()=>  navigate("/singIn")} className={singUp.sendToSingIn}>you already have account</button>
             </form>
         </div>
